@@ -5,10 +5,14 @@ import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-r
 import thunk from 'redux-thunk'
 import { createStore, applyMiddleware } from 'redux'
 import createHistory from 'history/createBrowserHistory'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import { Route, Switch } from 'react-router'
+import {Grid} from 'react-bootstrap'
 import 'bootstrap3/dist/css/bootstrap.css'
-import registerServiceWorker from './registerServiceWorker';
+import registerServiceWorker from './registerServiceWorker'
+import MainPanel from './MainPanel'
+import SearchPanel from './SearchPanel'
+import PanelOfResult from './PanelOfResult'
 
 const history = createHistory()
 
@@ -23,8 +27,13 @@ const ConnectedSwitch = connect(state => ({
 
 const AppContainer = () => (
     <ConnectedSwitch>
-        <Route exact path="/" component={() => (<h1>Home <Link to="/about">About</Link></h1>)} />
-        <Route path="/about" component={() => (<h1>About <Link to="/">Home</Link></h1>)} />
+        <MainPanel>
+            <Grid fluid>
+                <Route exact path="/" component={SearchPanel} />
+                <PanelOfResult/>
+                {/*<Route path="/about" component={() => (<h1>About <Link to="/">Home</Link></h1>)} />*/}
+            </Grid>
+        </MainPanel>
     </ConnectedSwitch>
 )
 
