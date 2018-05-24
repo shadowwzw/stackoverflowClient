@@ -10,6 +10,7 @@ import { Route, Switch } from 'react-router'
 import {Grid} from 'react-bootstrap'
 import 'bootstrap3/dist/css/bootstrap.css'
 import registerServiceWorker from './registerServiceWorker'
+import reducers from './reducers'
 import MainPanel from './components/MainPanel'
 import SearchPanel from './components/SearchPanel'
 import PanelOfResult from './containers/PanelOfResult'
@@ -18,6 +19,7 @@ const history = createHistory()
 
 const store = createStore(
     combineReducers({
+        ...reducers,
         routing: routerReducer
     }),
     composeWithDevTools(applyMiddleware(routerMiddleware(history), thunk)),
