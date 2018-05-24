@@ -1,6 +1,6 @@
 import delay from 'delay'
 import { apiHost } from '../constants'
-import {FETCH_QUESTIONS} from '../actionTypes'
+import {FETCH_QUESTIONS, SEARCH_CHANGE} from '../actionTypes'
 import searchResponse from '../fixtures/searchResponse.json'
 
 export const fetchQuestionsByIntitle = (intitle, fromFixtures = false) => async (dispatch) => {
@@ -30,3 +30,8 @@ export const fetchQuestionsByIntitle = (intitle, fromFixtures = false) => async 
         })
     }
 }
+
+export const changeSearch = newValue => ({
+    type: SEARCH_CHANGE,
+    payload: newValue
+})

@@ -10,3 +10,17 @@ export const selectorForPanelOfResult = createSelector(
         questionsIsLoading, questions
     })
 )
+
+const searchSelector = state => state.search
+
+export const selectorForSearchPanel = createSelector(
+    searchSelector,
+    search => ({search})
+)
+
+const locationSelector = state => state.routing.location
+
+export const selectorForLocation = createSelector(
+    locationSelector,
+    location => ({location})
+)

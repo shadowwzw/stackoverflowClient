@@ -12,8 +12,9 @@ import 'bootstrap3/dist/css/bootstrap.css'
 import registerServiceWorker from './registerServiceWorker'
 import reducers from './reducers'
 import MainPanel from './components/MainPanel'
-import SearchPanel from './components/SearchPanel'
+import SearchPanelWrapped from './containers/SearchPanelWrapped'
 import PanelOfResult from './containers/PanelOfResult'
+import {selectorForLocation} from './selectors'
 
 const history = createHistory()
 
@@ -25,25 +26,20 @@ const store = createStore(
     composeWithDevTools(applyMiddleware(routerMiddleware(history), thunk)),
 )
 
-const ConnectedSwitch = connect(state => ({
-    location: state.location
-}))(Switch)
+const ConnectedSwitch = connect(selectorForLocation)(Switch)
 
 const AppContainer = () => (
     <ConnectedSwitch>
         <MainPanel>
             <Grid fluid>
-                <Route exact path="/" component={SearchPanel} />
-                <PanelOfResult/>
-                {/*<Route path="/about" component={() => (<h1>About <Link to="/">Home</Link></h1>)} />*/}
+                <Route exact path="/" component={SearchPanelWrapped} />
+                <Route path="/result" component={PanelOfResult} />
             </Grid>
         </MainPanel>
     </ConnectedSwitch>
 )
 
-const App = connect(state => ({
-    location: state.location,
-}))(AppContainer)
+const App = connect(selectorForLocation)(AppContainer)
 
 render(
     <Provider store={store}>
