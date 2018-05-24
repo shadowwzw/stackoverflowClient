@@ -1,7 +1,7 @@
-import delay from 'delay'
 import { apiHost } from '../constants'
 import {FETCH_QUESTIONS, SEARCH_CHANGE} from '../actionTypes'
 import searchResponse from '../fixtures/searchResponse.json'
+import {delay} from '../utils'
 
 export const fetchQuestionsByIntitle = (intitle, fromFixtures = false) => async (dispatch) => {
     dispatch({

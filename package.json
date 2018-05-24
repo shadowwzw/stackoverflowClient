@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "bootstrap3": "^3.3.5",
-    "delay": "^2.0.0",
     "history": "^4.7.2",
     "react": "^16.4.0",
     "react-bootstrap": "^0.32.1",
