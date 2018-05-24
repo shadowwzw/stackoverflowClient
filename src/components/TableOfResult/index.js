@@ -3,12 +3,12 @@ import BootstrapTable from 'react-bootstrap-table-next';
 
 const columns = [
     {
-        dataField: 'subject',
-        text: 'Subject'
-    },
-    {
         dataField: 'author',
         text: 'Author'
+    },
+    {
+        dataField: 'subject',
+        text: 'Subject'
     },
     {
         dataField: 'numberOfAnswers',

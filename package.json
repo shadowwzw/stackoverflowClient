@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "bootstrap3": "^3.3.5",
+    "delay": "^2.0.0",
     "history": "^4.7.2",
     "react": "^16.4.0",
     "react-bootstrap": "^0.32.1",
@@ -14,8 +15,12 @@
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
     "react-scripts": "1.1.4",
+    "recompose": "^0.27.1",
     "redux": "^4.0.0",
-    "redux-thunk": "^2.2.0"
+    "redux-devtools-extension": "^2.13.2",
+    "redux-thunk": "^2.2.0",
+    "redux-types-creator": "0.0.9",
+    "reselect": "^3.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -2,23 +2,25 @@ import React from 'react'
 import { render } from 'react-dom'
 import { connect, Provider } from 'react-redux'
 import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
+import { createStore, applyMiddleware, combineReducers } from 'redux'
+import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
-import { createStore, applyMiddleware } from 'redux'
 import createHistory from 'history/createBrowserHistory'
-// import { Link } from 'react-router-dom'
 import { Route, Switch } from 'react-router'
 import {Grid} from 'react-bootstrap'
 import 'bootstrap3/dist/css/bootstrap.css'
 import registerServiceWorker from './registerServiceWorker'
-import MainPanel from './MainPanel'
-import SearchPanel from './SearchPanel'
-import PanelOfResult from './PanelOfResult'
+import MainPanel from './components/MainPanel'
+import SearchPanel from './components/SearchPanel'
+import PanelOfResult from './containers/PanelOfResult'
 
 const history = createHistory()
 
 const store = createStore(
-    routerReducer,
-    applyMiddleware(routerMiddleware(history), thunk),
+    combineReducers({
+        routing: routerReducer
+    }),
+    composeWithDevTools(applyMiddleware(routerMiddleware(history), thunk)),
 )
 
 const ConnectedSwitch = connect(state => ({
