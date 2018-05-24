@@ -5,6 +5,7 @@ import {fetchQuestionsByIntitle} from '../../actions'
 import {Panel, Row, Col} from 'react-bootstrap'
 import TableOfResult from '../../components/TableOfResult/index'
 import ResultSpinner from '../../components/ResultSpinner'
+import {selectorForPanelOfResult} from '../../selectors'
 
 const PanelOfResult = () => (
     <Row>
@@ -19,12 +20,8 @@ const PanelOfResult = () => (
     </Row>
 )
 
-const mapStateToProps = (state, props) => {
-    return {}
-}
-
 export default compose(
-    connect(mapStateToProps, {
+    connect(selectorForPanelOfResult, {
         fetchQuestionsByIntitle
     }),
     lifecycle({
