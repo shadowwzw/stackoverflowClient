@@ -4,7 +4,7 @@ import {compose, lifecycle, branch,renderComponent} from 'recompose'
 import {fetchQuestionsByIntitle} from '../../actions'
 import {Panel, Row, Col} from 'react-bootstrap'
 import TableOfResult from '../../components/TableOfResult/index'
-import Spinner from '../../components/Spinner'
+import ResultSpinner from '../../components/ResultSpinner'
 
 const PanelOfResult = () => (
     <Row>
@@ -34,6 +34,6 @@ export default compose(
     }),
     branch(
         ({questionsIsLoading}) => questionsIsLoading,
-        renderComponent(Spinner)
+        renderComponent(ResultSpinner)
     )
 )(PanelOfResult)
