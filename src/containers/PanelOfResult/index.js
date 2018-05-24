@@ -1,9 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {compose, lifecycle} from 'recompose'
+import {compose, lifecycle, branch,renderComponent} from 'recompose'
 import {fetchQuestionsByIntitle} from '../../actions'
 import {Panel, Row, Col} from 'react-bootstrap'
 import TableOfResult from '../../components/TableOfResult/index'
+import Spinner from '../../components/Spinner'
 
 const PanelOfResult = () => (
     <Row>
@@ -30,5 +31,9 @@ export default compose(
         componentDidMount() {
             this.props.fetchQuestionsByIntitle('react', true)
         }
-    })
+    }),
+    branch(
+        ({questionsIsLoading}) => questionsIsLoading,
+        renderComponent(Spinner)
+    )
 )(PanelOfResult)
