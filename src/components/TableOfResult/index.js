@@ -22,14 +22,17 @@ const columns = [
     },
 ];
 
-const TableOfResult = ({data, caption, getTdProps}) => (
-    <ReactTable
-        data={data}
-        columns={columns}
-        getTdProps={getTdProps}
-        pageSizeOptions={[5, 10, 15, 30, 50]}
-        defaultPageSize={15}
-    />
+const TableOfResult = ({data, caption, getTdProps, title}) => (
+    <div className="animated fadeIn">
+        <h3>{title}</h3>
+        <ReactTable
+            data={data}
+            columns={columns}
+            getTdProps={getTdProps}
+            pageSizeOptions={[5, 10, 15, 30, 50]}
+            defaultPageSize={15}
+        />
+    </div>
 )
 
 export default TableOfResult

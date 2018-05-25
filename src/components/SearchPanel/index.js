@@ -4,7 +4,7 @@ import {FormGroup, FormControl, Form, Col, Button, Row} from 'react-bootstrap'
 const SearchPanel = ({onChange, onSubmit, search}) => (
     <Row>
         <Col smOffset={3} mdOffset={3} lgOffset={3} sm={6} md={6} lg={5}>
-            <Form horizontal>
+            <Form horizontal className="animated fadeIn">
                 <FormGroup controlId="formHorizontalEmail">
                     <Col sm={10}>
                         <FormControl

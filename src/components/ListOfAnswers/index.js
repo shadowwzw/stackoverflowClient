@@ -3,7 +3,7 @@ import {Panel} from 'react-bootstrap'
 
 const ListOfAnswers = ({answers}) => (
     answers.map(answer => (
-        <div key={answer.answer_id}>
+        <div key={answer.answer_id} className="animated fadeIn">
             <Panel>
                 <Panel.Heading>answer from {answer.author}</Panel.Heading>
                 <Panel.Body>

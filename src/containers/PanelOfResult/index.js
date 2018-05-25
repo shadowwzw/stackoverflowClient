@@ -30,21 +30,18 @@ const PanelOfResult = ({
                            bestQuestionsByTagsIsLoading
 }) => {
     const bestQuestionsTable =
-        <div>
-            <h3>Quick view panel</h3>
-            <TableOfResult
-                data={quickViewTableType === BEST_QUESTIONS_BY_AUTHOR_TYPE ? bestQuestionsByAuthor : bestQuestionsByTags}
-                rowEvents={rowEvents}
-                getTdProps={getTdProps}
-                caption="search results"
-            />
-        </div>
+        <TableOfResult
+            title="Quick view panel"
+            data={quickViewTableType === BEST_QUESTIONS_BY_AUTHOR_TYPE ? bestQuestionsByAuthor : bestQuestionsByTags}
+            rowEvents={rowEvents}
+            getTdProps={getTdProps}
+        />
     const isLoading = bestQuestionsByAuthorIsLoading || bestQuestionsByTagsIsLoading
     const TableOfResultOrSpinner = isLoading ? <ResultSpinner /> : bestQuestionsTable
     return <Row>
         <Col sm={12} md={12} lg={6}>
-            <h3>Search results</h3>
             <TableOfResult
+                title="Search results"
                 data={questions}
                 rowEvents={rowEvents}
                 getTdProps={getTdProps}
