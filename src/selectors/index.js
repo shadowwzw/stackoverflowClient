@@ -38,7 +38,9 @@ export const selectorForPanelOfResult = createSelector(
 )
 
 export const answersSelector = ({answers}) => answers.map(answer => ({
-
+    author: get(answer, 'owner.display_name', ''),
+    body: answer.body,
+    question_id: answer.question_id
 }))
 
 export const fullQuestionSelector = ({fullQuestion}) => ({
@@ -52,12 +54,15 @@ export const fullQuestionIsLoadingSelector = state => state.fullQuestionIsLoadin
 export const selectorForModalOfDescription = createSelector(
     fullQuestionSelector,
     fullQuestionIsLoadingSelector,
+    answersSelector,
     (
         fullQuestion,
-        fullQuestionIsLoading
+        fullQuestionIsLoading,
+        answers,
     ) => ({
         fullQuestion,
-        fullQuestionIsLoading
+        fullQuestionIsLoading,
+        answers
     })
 )
 
