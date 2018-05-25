@@ -27,6 +27,8 @@ const TableOfResult = ({data, caption, getTdProps}) => (
         data={data}
         columns={columns}
         getTdProps={getTdProps}
+        pageSizeOptions={[5, 10, 15, 30, 50]}
+        defaultPageSize={15}
     />
 )
 
