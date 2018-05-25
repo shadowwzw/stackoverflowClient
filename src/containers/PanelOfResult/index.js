@@ -23,10 +23,11 @@ const PanelOfResult = ({
                            rowEvents,
                            getTdProps,
                            bestQuestionsByAuthor,
-                           quickViewTableIsEnabledSelector,
-                           bestQuestionsByAuthorIsLoadingSelector,
+                           quickViewTableIsEnabled,
+                           bestQuestionsByAuthorIsLoading,
                            quickViewTableType,
-                           bestQuestionsByTags
+                           bestQuestionsByTags,
+                           bestQuestionsByTagsIsLoading
 }) => {
     const bestQuestionsTable =
         <div>
@@ -38,7 +39,8 @@ const PanelOfResult = ({
                 caption="search results"
             />
         </div>
-    const TableOfResultOrSpinner = bestQuestionsByAuthorIsLoadingSelector ? <ResultSpinner /> : bestQuestionsTable
+    const isLoading = bestQuestionsByAuthorIsLoading || bestQuestionsByTagsIsLoading
+    const TableOfResultOrSpinner = isLoading ? <ResultSpinner /> : bestQuestionsTable
     return <Row>
         <Col sm={12} md={12} lg={6}>
             <h3>Search results</h3>
@@ -49,7 +51,7 @@ const PanelOfResult = ({
                 caption="search results"
             />
         </Col>
-        {quickViewTableIsEnabledSelector && <Col sm={12} md={12} lg={6}>{TableOfResultOrSpinner}</Col>}
+        {quickViewTableIsEnabled && <Col sm={12} md={12} lg={6}>{TableOfResultOrSpinner}</Col>}
     </Row>
 }
 

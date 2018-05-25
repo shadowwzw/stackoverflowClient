@@ -20,6 +20,8 @@ const quickViewTableIsEnabledSelector = state => state.quickViewTableIsEnabled
 
 const bestQuestionsByAuthorIsLoadingSelector = state => state.bestQuestionsByAuthorIsLoading
 
+const bestQuestionsByTagsIsLoadingSelector = state => state.bestQuestionsByTagsIsLoading
+
 const quickViewTableTypeSelector = state => state.quickViewTableType
 
 export const selectorForPanelOfResult = createSelector(
@@ -32,26 +34,29 @@ export const selectorForPanelOfResult = createSelector(
     createQuestionsSelector('bestQuestionsByTags'),
     useFixturesSelector,
     searchSelector,
+    bestQuestionsByTagsIsLoadingSelector,
     (
         questionsIsLoading,
         questions,
         bestQuestionsByAuthor,
-        quickViewTableIsEnabledSelector,
-        bestQuestionsByAuthorIsLoadingSelector,
+        quickViewTableIsEnabled,
+        bestQuestionsByAuthorIsLoading,
         quickViewTableType,
         bestQuestionsByTags,
         useFixtures,
-        search
+        search,
+        bestQuestionsByTagsIsLoading
         ) => ({
             questionsIsLoading,
             questions,
             bestQuestionsByAuthor,
-            quickViewTableIsEnabledSelector,
-            bestQuestionsByAuthorIsLoadingSelector,
+            quickViewTableIsEnabled,
+            bestQuestionsByAuthorIsLoading,
             quickViewTableType,
             bestQuestionsByTags,
             useFixtures,
-            search
+            search,
+            bestQuestionsByTagsIsLoading
         })
 )
 
