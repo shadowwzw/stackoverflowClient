@@ -14,12 +14,21 @@ export const questionsSelector = (state) => state.questions.map(item => {
     }
 })
 
+const quickViewTableIsEnabledSelector = state => state.quickViewTableIsEnabled
+
 export const selectorForPanelOfResult = createSelector(
     questionsIsLoadingSelector,
     questionsSelector,
-    (questionsIsLoading, questions) => ({
-        questionsIsLoading, questions
-    })
+    quickViewTableIsEnabledSelector,
+    (
+        questionsIsLoading,
+        questions,
+        quickViewTableIsEnabledSelector
+        ) => ({
+            questionsIsLoading,
+            questions,
+            quickViewTableIsEnabledSelector
+        })
 )
 
 const searchSelector = state => state.search

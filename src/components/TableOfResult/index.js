@@ -5,6 +5,7 @@ const columns = [
     {
         accessor: 'author',
         Header: 'Author',
+        maxWidth: 150
     },
     {
         accessor: 'subject',
@@ -12,7 +13,8 @@ const columns = [
     },
     {
         accessor: 'numberOfAnswers',
-        Header: 'answers'
+        Header: 'answers',
+        maxWidth: 70
     },
     {
         accessor: 'tags',
