@@ -7,13 +7,13 @@ import TableOfResult from '../../components/TableOfResult/index'
 import ResultSpinner from '../../components/ResultSpinner'
 import {selectorForPanelOfResult} from '../../selectors'
 
-const PanelOfResult = () => (
+const PanelOfResult = ({questions}) => (
     <Row>
         <Col sm={12} md={12} lg={6}>
             <Panel>
                 <Panel.Heading>search results</Panel.Heading>
                 <Panel.Body>
-                    <TableOfResult data={[]} />
+                    <TableOfResult data={questions} />
                 </Panel.Body>
             </Panel>
         </Col>
@@ -25,6 +25,9 @@ export default compose(
         fetchQuestionsByIntitle
     }),
     lifecycle({
+        componentDidUpdate() {
+            console.log('questions = ', this.props.questions)
+        },
         componentDidMount() {
             this.props.fetchQuestionsByIntitle('react', true)
         }

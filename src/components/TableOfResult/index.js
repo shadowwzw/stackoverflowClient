@@ -21,7 +21,7 @@ const columns = [
 ];
 
 const TableOfResult = ({data}) => (
-    <BootstrapTable keyField='id' data={data} columns={ columns } />
+    <BootstrapTable keyField='question_id' data={data} columns={ columns } />
 )
 
 export default TableOfResult
