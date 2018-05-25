@@ -40,7 +40,7 @@ export const selectorForPanelOfResult = createSelector(
 export const answersSelector = ({answers}) => answers.map(answer => ({
     author: get(answer, 'owner.display_name', ''),
     body: answer.body,
-    question_id: answer.question_id
+    answer_id: answer.answer_id
 }))
 
 export const fullQuestionSelector = ({fullQuestion}) => ({

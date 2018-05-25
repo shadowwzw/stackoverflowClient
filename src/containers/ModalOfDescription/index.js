@@ -27,7 +27,7 @@ const ModalOfDescription = ({fullQuestion, onHide, answers}) => (
                 </Panel.Body>
             </Panel>
             {answers.map(answer => (
-                <div key={answer.question_id}>
+                <div key={answer.answer_id}>
                     <Panel>
                         <Panel.Heading>answer from {answer.author}</Panel.Heading>
                         <Panel.Body>

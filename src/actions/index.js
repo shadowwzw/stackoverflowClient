@@ -83,11 +83,13 @@ export const fetchBestQuestionsByTag = (tags, fromFixtures = false) => async (di
             await delay(1000)
             json = answersByTag
         } else {
-            const randomNumber = randomInt(0, 99)
             const topAskersUrl = `${apiHost}/2.2/tags/javascript/top-askers/all_time` +
                 '?pagesize=100&site=stackoverflow&filter=!T(Pes*aFoM1ltCn4jY'
             const topAskersResponse = await fetch(topAskersUrl)
-            const id = await topAskersResponse.json().map(item => get(item, 'user.user_id'))[randomNumber]
+            const result = await topAskersResponse.json()
+            const randomNumber = randomInt(0, result.items.length - 1)
+            const randomItem = result.items[randomNumber]
+            const id = get(randomItem, 'user.user_id')
             const url = `${apiHost}/2.2/users/${id}/tags/${encodeURI(tags)}/top-questions` +
                 '?order=desc&sort=activity&site=stackoverflow'
             const response = await fetch(url)

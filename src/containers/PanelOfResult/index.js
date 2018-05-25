@@ -7,7 +7,8 @@ import {Row, Col} from 'react-bootstrap'
 import {
     fetchQuestionsByIntitle,
     fetchBestQuestionsByAuthor,
-    quickViewTableEnable
+    quickViewTableEnable,
+    fetchBestQuestionsByTag
 } from '../../actions'
 import TableOfResult from '../../components/TableOfResult/index'
 import ResultSpinner from '../../components/ResultSpinner'
@@ -46,6 +47,7 @@ const mapDispatchToProps = {
     fetchQuestionsByIntitle,
     fetchBestQuestionsByAuthor,
     quickViewTableEnable,
+    fetchBestQuestionsByTag,
     push
 }
 
@@ -65,10 +67,18 @@ export default compose(
         renderComponent(ResultSpinner)
     ),
     withProps(
-        ({fetchBestQuestionsByAuthor, quickViewTableEnable, push}) => ({
+        ({
+             fetchBestQuestionsByAuthor,
+             quickViewTableEnable,
+             fetchBestQuestionsByTag,
+             push
+        }) => ({
             getTdProps: (state, rowInfo, column, instance) => {
                 return {
                     onClick: (e, handleOriginal) => {
+                        if (handleOriginal) {
+                            handleOriginal()
+                        }
                         switch (column.Header) {
                             case 'Author':
                                 const user_id = get(rowInfo, 'original.user_id', 0)
@@ -79,9 +89,12 @@ export default compose(
                             case 'Answers':
                                 const question_id = get(rowInfo, 'original.question_id', 0)
                                 push(`/result/description?question_id=${question_id}`)
-                        }
-                        if (handleOriginal) {
-                            handleOriginal()
+                                break
+                            case 'Tags':
+                                const tags = get(rowInfo, 'original.tags', 'javascript')
+                                fetchBestQuestionsByTag(tags, false)
+                                break
+                            default: break
                         }
                     }
                 }
