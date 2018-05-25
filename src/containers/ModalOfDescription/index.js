@@ -3,11 +3,11 @@ import {connect} from 'react-redux'
 import {compose, lifecycle, withHandlers} from 'recompose'
 import {push} from 'react-router-redux'
 import {parse} from 'query-string'
-import {FormGroup, FormControl, Form, Col, Button, Row, Modal} from 'react-bootstrap'
+import {Button, Modal, Panel} from 'react-bootstrap'
 import {selectorForModalOfDescription} from '../../selectors'
 import {fetchFullQuestion, fetchAnswersByQuestionId} from '../../actions'
 
-const ModalOfDescription = ({fullQuestion, onHide}) => (
+const ModalOfDescription = ({fullQuestion, onHide, answers}) => (
     <Modal
         show={true}
         onHide={onHide}
@@ -19,7 +19,22 @@ const ModalOfDescription = ({fullQuestion, onHide}) => (
             </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <div dangerouslySetInnerHTML={{__html: fullQuestion.body}} />
+            <Panel>
+                <Panel.Heading>Question from {fullQuestion.author}</Panel.Heading>
+                <Panel.Body>
+                    <div dangerouslySetInnerHTML={{__html: fullQuestion.body}} />
+                </Panel.Body>
+            </Panel>
+            {answers.map(answer => (
+                <div key={answer.question_id}>
+                    <Panel>
+                        <Panel.Heading>answer from {answer.author}</Panel.Heading>
+                        <Panel.Body>
+                            <div dangerouslySetInnerHTML={{__html: answer.body}}/>
+                        </Panel.Body>
+                    </Panel>
+                </div>
+            ))}
         </Modal.Body>
         <Modal.Footer>
             <Button onClick={onHide}>Close</Button>
