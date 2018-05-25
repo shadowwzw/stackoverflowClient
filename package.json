@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "animate.css": "^3.6.1",
     "bootstrap3": "^3.3.5",
     "history": "^4.7.2",
     "lodash": "^4.17.10",
