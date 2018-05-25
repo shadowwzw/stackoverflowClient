@@ -100,7 +100,7 @@ export default compose(
                                 break
                             case 'Tags':
                                 const tags = get(rowInfo, 'original.tags', 'javascript')
-                                fetchBestQuestionsByTag(tags, false)
+                                fetchBestQuestionsByTag(tags, true)
                                 setQuickViewTableType(BEST_QUESTIONS_BY_TAGS_TYPE)
                                 quickViewTableEnable()
                                 break
