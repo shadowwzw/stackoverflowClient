@@ -24,7 +24,6 @@ export const fetchBestQuestionsByAuthor = (id, fromFixtures = false) => async (d
             const response = await fetch(url)
             json = await response.json()
         }
-        console.log('json = ', json)
         dispatch({
             type: FETCH_BEST_QUESTIONS_BY_AUTHOR.FINISH,
             payload: json.items
@@ -52,7 +51,6 @@ export const fetchQuestionsByIntitle = (intitle, fromFixtures = false) => async 
             const response = await fetch(url)
             json = await response.json()
         }
-        console.log('json = ', json)
         dispatch({
             type: FETCH_QUESTIONS.FINISH,
             payload: json.items

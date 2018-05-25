@@ -16,21 +16,26 @@ export const createQuestionsSelector = key => state => state[key].map(item => {
 
 const quickViewTableIsEnabledSelector = state => state.quickViewTableIsEnabled
 
+const bestQuestionsByAuthorIsLoadingSelector = state => state.bestQuestionsByAuthorIsLoading
+
 export const selectorForPanelOfResult = createSelector(
     questionsIsLoadingSelector,
     createQuestionsSelector('questions'),
     createQuestionsSelector('bestQuestionsByAuthor'),
     quickViewTableIsEnabledSelector,
+    bestQuestionsByAuthorIsLoadingSelector,
     (
         questionsIsLoading,
         questions,
         bestQuestionsByAuthor,
-        quickViewTableIsEnabledSelector
+        quickViewTableIsEnabledSelector,
+        bestQuestionsByAuthorIsLoadingSelector
         ) => ({
             questionsIsLoading,
             questions,
             bestQuestionsByAuthor,
-            quickViewTableIsEnabledSelector
+            quickViewTableIsEnabledSelector,
+            bestQuestionsByAuthorIsLoadingSelector
         })
 )
 

@@ -1,12 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import get from 'lodash/get'
 import {compose, lifecycle, branch,renderComponent, withProps} from 'recompose'
+import {Row, Col} from 'react-bootstrap'
 import {
     fetchQuestionsByIntitle,
     fetchBestQuestionsByAuthor,
     quickViewTableEnable
 } from '../../actions'
-import {Row, Col} from 'react-bootstrap'
 import TableOfResult from '../../components/TableOfResult/index'
 import ResultSpinner from '../../components/ResultSpinner'
 import {selectorForPanelOfResult} from '../../selectors'
@@ -16,9 +17,18 @@ const PanelOfResult = ({
                            rowEvents,
                            getTdProps,
                            bestQuestionsByAuthor,
-                           quickViewTableIsEnabledSelector
-}) => (
-    <Row>
+                           quickViewTableIsEnabledSelector,
+                           bestQuestionsByAuthorIsLoadingSelector
+}) => {
+    const bestQuestionsTable =
+        <TableOfResult
+            data={bestQuestionsByAuthor}
+            rowEvents={rowEvents}
+            getTdProps={getTdProps}
+            caption="search results"
+        />
+    const TableOfResultOrSpinner = bestQuestionsByAuthorIsLoadingSelector ? <ResultSpinner /> : bestQuestionsTable
+    return <Row>
         <Col sm={12} md={12} lg={6}>
             <TableOfResult
                 data={questions}
@@ -27,16 +37,9 @@ const PanelOfResult = ({
                 caption="search results"
             />
         </Col>
-        {quickViewTableIsEnabledSelector && <Col sm={12} md={12} lg={6}>
-            <TableOfResult
-                data={bestQuestionsByAuthor}
-                rowEvents={rowEvents}
-                getTdProps={getTdProps}
-                caption="search results"
-            />
-        </Col>}
+        {quickViewTableIsEnabledSelector && <Col sm={12} md={12} lg={6}>{TableOfResultOrSpinner}</Col>}
     </Row>
-)
+}
 
 const mapDispatchToProps = {
     fetchQuestionsByIntitle,
@@ -48,7 +51,7 @@ export default compose(
     connect(selectorForPanelOfResult, mapDispatchToProps),
     lifecycle({
         componentDidUpdate() {
-            console.log('questions = ', this.props.questions)
+            // console.log('questions = ', this.props.questions)
         },
         componentDidMount() {
             const {fetchQuestionsByIntitle, search} = this.props
@@ -65,7 +68,8 @@ export default compose(
                 return {
                     onClick: (e, handleOriginal) => {
                         if (column.Header === 'Author') {
-                            fetchBestQuestionsByAuthor(123, true)
+                            const user_id = get(rowInfo, 'original.user_id', 0)
+                            fetchBestQuestionsByAuthor(user_id, true)
                             quickViewTableEnable()
                         }
                         console.log("A Td Element was clicked!");
