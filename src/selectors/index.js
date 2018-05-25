@@ -39,6 +39,22 @@ export const selectorForPanelOfResult = createSelector(
         })
 )
 
+export const fullQuestionSelector = state => state.fullQuestion
+
+export const fullQuestionIsLoadingSelector = state => state.fullQuestionIsLoading
+
+export const selectorForModalOfDescription = createSelector(
+    fullQuestionSelector,
+    fullQuestionIsLoadingSelector,
+    (
+        fullQuestionSelector,
+        fullQuestionIsLoadingSelector
+    ) => ({
+        fullQuestionSelector,
+        fullQuestionIsLoadingSelector
+    })
+)
+
 const searchSelector = state => state.search
 
 export const selectorForSearchPanel = createSelector(

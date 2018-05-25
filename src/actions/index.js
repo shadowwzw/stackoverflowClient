@@ -1,6 +1,7 @@
 import { apiHost } from '../constants'
 import searchResponse from '../fixtures/searchResponse.json'
 import bestQuestionsByAuthor from '../fixtures/bestQuestionsByAuthor.json'
+import fullQuestion from '../fixtures/fullQuestion.json'
 import {delay} from '../utils'
 import {
     FETCH_QUESTIONS,
@@ -19,7 +20,7 @@ export const fetchFullQuestion = (id, fromFixtures = false) => async (dispatch) 
         let json
         if (fromFixtures) {
             await delay(1000)
-            json = bestQuestionsByAuthor
+            json = fullQuestion
         } else {
             const url = `${apiHost}/2.2/questions/${id}?order=desc&sort=activity&site=stackoverflow&filter=!9Z(-wwYGT`
             const response = await fetch(url)

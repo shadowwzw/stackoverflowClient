@@ -1,5 +1,9 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {compose, lifecycle} from 'recompose'
 import {FormGroup, FormControl, Form, Col, Button, Row, Modal} from 'react-bootstrap'
+import {selectorForModalOfDescription} from '../../selectors'
+import {fetchFullQuestion} from '../../actions'
 
 const ModalOfDescription = ({}) => (
     <Modal
@@ -21,4 +25,16 @@ const ModalOfDescription = ({}) => (
     </Modal>
 )
 
-export default ModalOfDescription
+const mapDispatchToProps = {
+    fetchFullQuestion
+}
+
+export default compose(
+    connect(selectorForModalOfDescription, mapDispatchToProps),
+    lifecycle({
+        componentDidMount() {
+            const {fetchFullQuestion, location} = this.props
+            console.log('location = ', location)
+        }
+    })
+)(ModalOfDescription)

@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import get from 'lodash/get'
 import {compose, lifecycle, branch,renderComponent, withProps} from 'recompose'
+import {push} from 'react-router-redux'
 import {Row, Col} from 'react-bootstrap'
 import {
     fetchQuestionsByIntitle,
@@ -44,7 +45,8 @@ const PanelOfResult = ({
 const mapDispatchToProps = {
     fetchQuestionsByIntitle,
     fetchBestQuestionsByAuthor,
-    quickViewTableEnable
+    quickViewTableEnable,
+    push
 }
 
 export default compose(
@@ -63,26 +65,21 @@ export default compose(
         renderComponent(ResultSpinner)
     ),
     withProps(
-        ({fetchBestQuestionsByAuthor, quickViewTableEnable}) => ({
+        ({fetchBestQuestionsByAuthor, quickViewTableEnable, push}) => ({
             getTdProps: (state, rowInfo, column, instance) => {
                 return {
                     onClick: (e, handleOriginal) => {
-                        if (column.Header === 'Author') {
-                            const user_id = get(rowInfo, 'original.user_id', 0)
-                            fetchBestQuestionsByAuthor(user_id, true)
-                            quickViewTableEnable()
+                        switch (column.Header) {
+                            case 'Author':
+                                const user_id = get(rowInfo, 'original.user_id', 0)
+                                fetchBestQuestionsByAuthor(user_id, true)
+                                quickViewTableEnable()
+                                break
+                            case 'Subject':
+                            case 'Answers':
+                                const question_id = get(rowInfo, 'original.question_id', 0)
+                                push(`/result/description?question_id=${question_id}`)
                         }
-                        console.log("A Td Element was clicked!");
-                        console.log("it produced this event:", e);
-                        console.log("It was in this column:", column);
-                        console.log("It was in this row:", rowInfo);
-                        console.log("It was in this table instance:", instance);
-
-                        // IMPORTANT! React-Table uses onClick internally to trigger
-                        // events like expanding SubComponents and pivots.
-                        // By default a custom 'onClick' handler will override this functionality.
-                        // If you want to fire the original onClick handler, call the
-                        // 'handleOriginal' function.
                         if (handleOriginal) {
                             handleOriginal()
                         }

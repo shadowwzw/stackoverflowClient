@@ -13,7 +13,7 @@ const columns = [
     },
     {
         accessor: 'numberOfAnswers',
-        Header: 'answers',
+        Header: 'Answers',
         maxWidth: 70
     },
     {
