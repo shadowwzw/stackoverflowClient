@@ -10,9 +10,10 @@ import ResultSpinner from '../../components/ResultSpinner'
 import DescriptionOfQuestion from '../../components/DescriptionOfQuestion'
 import ListOfAnswers from '../../components/ListOfAnswers'
 
-const ModalOfDescription = ({fullQuestion, onHide, answers, fullQuestionIsLoading}) => {
+const ModalOfDescription = ({fullQuestion, onHide, answers, fullQuestionIsLoading, answersIsLoading}) => {
     const DescriptionOfQuestionOrSpinner = fullQuestionIsLoading ?
         <ResultSpinner/> : <DescriptionOfQuestion author={fullQuestion.author} body={fullQuestion.body}/>
+    const ListOfAnswersOrSpinner = answersIsLoading ? <ResultSpinner/> : <ListOfAnswers answers={answers}/>
     return (
         <Modal
             bsSize="large"
@@ -27,7 +28,7 @@ const ModalOfDescription = ({fullQuestion, onHide, answers, fullQuestionIsLoadin
             </Modal.Header>
             <Modal.Body>
                 {DescriptionOfQuestionOrSpinner}
-                <ListOfAnswers answers={answers}/>
+                {ListOfAnswersOrSpinner}
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={onHide}>Close</Button>

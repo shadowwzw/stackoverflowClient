@@ -74,24 +74,29 @@ export const fullQuestionSelector = ({fullQuestion}) => ({
 
 export const fullQuestionIsLoadingSelector = state => state.fullQuestionIsLoading
 
+export const answersIsLoadingSelector = state => state.answersIsLoading
+
 export const selectorForModalOfDescription = createSelector(
     fullQuestionSelector,
     fullQuestionIsLoadingSelector,
     answersSelector,
     useFixturesSelector,
     searchSelector,
+    answersIsLoadingSelector,
     (
         fullQuestion,
         fullQuestionIsLoading,
         answers,
         useFixtures,
-        search
+        search,
+        answersIsLoading
     ) => ({
         fullQuestion,
         fullQuestionIsLoading,
         answers,
         useFixtures,
-        search
+        search,
+        answersIsLoading
     })
 )
 
