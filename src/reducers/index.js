@@ -5,7 +5,8 @@ import {
     QUICK_VIEW_TABLE,
     FETCH_BEST_QUESTIONS_BY_AUTHOR,
     FETCH_FULL_QUESTION,
-    FETCH_ANSWERS_BY_QUESTION_ID
+    FETCH_ANSWERS_BY_QUESTION_ID,
+    FETCH_BEST_QUESTIONS_BY_TAG
 } from '../actionTypes'
 
 export const answers = createReducer([], {
@@ -39,6 +40,15 @@ export const bestQuestionsByAuthor = createReducer([], {
     [FETCH_BEST_QUESTIONS_BY_AUTHOR.FINISH]: (state, action) => action.payload
 })
 
+export const bestQuestionsByTags = createReducer([], {
+    [FETCH_BEST_QUESTIONS_BY_TAG.FINISH]: (state, action) => action.payload
+})
+
+export const bestQuestionsByTagsIsLoading = createReducer(false, {
+    [FETCH_BEST_QUESTIONS_BY_TAG.START]: () => true,
+    [FETCH_BEST_QUESTIONS_BY_TAG.FINISH]: () => false,
+})
+
 export const bestQuestionsByAuthorIsLoading = createReducer(false, {
     [FETCH_BEST_QUESTIONS_BY_AUTHOR.START]: () => true,
     [FETCH_BEST_QUESTIONS_BY_AUTHOR.FINISH]: () => false,
@@ -63,5 +73,7 @@ export default {
     fullQuestion,
     fullQuestionIsLoading,
     answers,
-    answersIsLoading
+    answersIsLoading,
+    bestQuestionsByTags,
+    bestQuestionsByTagsIsLoading
 }
