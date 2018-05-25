@@ -3,13 +3,15 @@ import {connect} from 'react-redux'
 import get from 'lodash/get'
 import {compose, lifecycle, branch,renderComponent, withProps} from 'recompose'
 import {push} from 'react-router-redux'
+import {parse} from 'query-string'
 import {Row, Col} from 'react-bootstrap'
 import {
     fetchQuestionsByIntitle,
     fetchBestQuestionsByAuthor,
     quickViewTableEnable,
     fetchBestQuestionsByTag,
-    setQuickViewTableType
+    setQuickViewTableType,
+    changeSearch
 } from '../../actions'
 import TableOfResult from '../../components/TableOfResult/index'
 import ResultSpinner from '../../components/ResultSpinner'
@@ -57,6 +59,7 @@ const mapDispatchToProps = {
     quickViewTableEnable,
     fetchBestQuestionsByTag,
     setQuickViewTableType,
+    changeSearch,
     push
 }
 
@@ -64,8 +67,13 @@ export default compose(
     connect(selectorForPanelOfResult, mapDispatchToProps),
     lifecycle({
         componentDidMount() {
-            const {fetchQuestionsByIntitle, search, useFixtures} = this.props
-            fetchQuestionsByIntitle(search, useFixtures)
+            const {fetchQuestionsByIntitle, search, useFixtures, location, changeSearch} = this.props
+            console.log('location = ', location)
+            const {search: searchFromLocation} = parse(location.search)
+            const decodedSearchFromLocation = decodeURI(searchFromLocation)
+            console.log('decodedSearchFromLocation = ', decodedSearchFromLocation)
+            if (search === undefined) changeSearch(decodedSearchFromLocation)
+            fetchQuestionsByIntitle(decodedSearchFromLocation, useFixtures)
         },
     }),
     branch(

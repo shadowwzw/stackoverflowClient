@@ -74,16 +74,19 @@ export const selectorForModalOfDescription = createSelector(
     fullQuestionIsLoadingSelector,
     answersSelector,
     useFixturesSelector,
+    searchSelector,
     (
         fullQuestion,
         fullQuestionIsLoading,
         answers,
-        useFixtures
+        useFixtures,
+        search
     ) => ({
         fullQuestion,
         fullQuestionIsLoading,
         answers,
-        useFixtures
+        useFixtures,
+        search
     })
 )
 

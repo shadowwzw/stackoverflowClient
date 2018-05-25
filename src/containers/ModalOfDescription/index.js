@@ -52,8 +52,8 @@ const mapDispatchToProps = {
 export default compose(
     connect(selectorForModalOfDescription, mapDispatchToProps),
     withHandlers({
-        onHide: ({push}) => () => {
-            push('/result')
+        onHide: ({push, search}) => () => {
+            push(`/result?search=${encodeURI(search)}`)
         }
     }),
     lifecycle({
