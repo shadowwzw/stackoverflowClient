@@ -14,7 +14,8 @@ import {
     FETCH_BEST_QUESTIONS_BY_AUTHOR,
     FETCH_FULL_QUESTION,
     FETCH_ANSWERS_BY_QUESTION_ID,
-    FETCH_BEST_QUESTIONS_BY_TAG
+    FETCH_BEST_QUESTIONS_BY_TAG,
+    SET_QUICK_VIEW_TABLE_TYPE
 } from '../actionTypes'
 
 export const fetchAnswersByQuestionId = (id, fromFixtures = false) => async (dispatch) => {
@@ -172,4 +173,9 @@ export const quickViewTableEnable = () => ({
 
 export const quickViewTableDisable = () => ({
     type: QUICK_VIEW_TABLE.DISABLE
+})
+
+export const setQuickViewTableType = (type) => ({
+    type: SET_QUICK_VIEW_TABLE_TYPE,
+    payload: type
 })

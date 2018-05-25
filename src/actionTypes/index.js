@@ -25,3 +25,4 @@ export const {
 } = actionTypes;
 
 export const SEARCH_CHANGE = 'SEARCH_CHANGE'
+export const SET_QUICK_VIEW_TABLE_TYPE = 'SET_QUICK_VIEW_TABLE_TYPE'

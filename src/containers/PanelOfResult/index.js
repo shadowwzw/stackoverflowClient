@@ -8,11 +8,13 @@ import {
     fetchQuestionsByIntitle,
     fetchBestQuestionsByAuthor,
     quickViewTableEnable,
-    fetchBestQuestionsByTag
+    fetchBestQuestionsByTag,
+    setQuickViewTableType
 } from '../../actions'
 import TableOfResult from '../../components/TableOfResult/index'
 import ResultSpinner from '../../components/ResultSpinner'
 import {selectorForPanelOfResult} from '../../selectors'
+import {BEST_QUESTIONS_BY_AUTHOR_TYPE, BEST_QUESTIONS_BY_TAGS_TYPE} from '../../constants'
 
 const PanelOfResult = ({
                            questions,
@@ -20,11 +22,14 @@ const PanelOfResult = ({
                            getTdProps,
                            bestQuestionsByAuthor,
                            quickViewTableIsEnabledSelector,
-                           bestQuestionsByAuthorIsLoadingSelector
+                           bestQuestionsByAuthorIsLoadingSelector,
+                           quickViewTableType,
+                           bestQuestionsByTags
 }) => {
+    console.log('quickViewTableType = ', quickViewTableType)
     const bestQuestionsTable =
         <TableOfResult
-            data={bestQuestionsByAuthor}
+            data={quickViewTableType === BEST_QUESTIONS_BY_AUTHOR_TYPE ? bestQuestionsByAuthor : bestQuestionsByTags}
             rowEvents={rowEvents}
             getTdProps={getTdProps}
             caption="search results"
@@ -48,6 +53,7 @@ const mapDispatchToProps = {
     fetchBestQuestionsByAuthor,
     quickViewTableEnable,
     fetchBestQuestionsByTag,
+    setQuickViewTableType,
     push
 }
 
@@ -71,6 +77,7 @@ export default compose(
              fetchBestQuestionsByAuthor,
              quickViewTableEnable,
              fetchBestQuestionsByTag,
+             setQuickViewTableType,
              push
         }) => ({
             getTdProps: (state, rowInfo, column, instance) => {
@@ -83,6 +90,7 @@ export default compose(
                             case 'Author':
                                 const user_id = get(rowInfo, 'original.user_id', 0)
                                 fetchBestQuestionsByAuthor(user_id, true)
+                                setQuickViewTableType(BEST_QUESTIONS_BY_AUTHOR_TYPE)
                                 quickViewTableEnable()
                                 break
                             case 'Subject':
@@ -93,6 +101,8 @@ export default compose(
                             case 'Tags':
                                 const tags = get(rowInfo, 'original.tags', 'javascript')
                                 fetchBestQuestionsByTag(tags, false)
+                                setQuickViewTableType(BEST_QUESTIONS_BY_TAGS_TYPE)
+                                quickViewTableEnable()
                                 break
                             default: break
                         }

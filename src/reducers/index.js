@@ -6,8 +6,13 @@ import {
     FETCH_BEST_QUESTIONS_BY_AUTHOR,
     FETCH_FULL_QUESTION,
     FETCH_ANSWERS_BY_QUESTION_ID,
-    FETCH_BEST_QUESTIONS_BY_TAG
+    FETCH_BEST_QUESTIONS_BY_TAG,
+    SET_QUICK_VIEW_TABLE_TYPE
 } from '../actionTypes'
+
+export const quickViewTableType = createReducer(null, {
+    [SET_QUICK_VIEW_TABLE_TYPE]: (state, action) => action.payload
+})
 
 export const answers = createReducer([], {
     [FETCH_ANSWERS_BY_QUESTION_ID.FINISH]: (state, action) => action.payload
@@ -75,5 +80,6 @@ export default {
     answers,
     answersIsLoading,
     bestQuestionsByTags,
-    bestQuestionsByTagsIsLoading
+    bestQuestionsByTagsIsLoading,
+    quickViewTableType
 }
