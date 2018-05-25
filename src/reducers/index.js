@@ -1,4 +1,5 @@
 import {createReducer} from 'redux-create-reducer';
+import config from '../config.json'
 import {
     FETCH_QUESTIONS,
     SEARCH_CHANGE,
@@ -9,6 +10,9 @@ import {
     FETCH_BEST_QUESTIONS_BY_TAG,
     SET_QUICK_VIEW_TABLE_TYPE
 } from '../actionTypes'
+
+export const useFixtures = createReducer(config.useFixtures, {
+})
 
 export const quickViewTableType = createReducer(null, {
     [SET_QUICK_VIEW_TABLE_TYPE]: (state, action) => action.payload
@@ -81,5 +85,6 @@ export default {
     answersIsLoading,
     bestQuestionsByTags,
     bestQuestionsByTagsIsLoading,
-    quickViewTableType
+    quickViewTableType,
+    useFixtures
 }
