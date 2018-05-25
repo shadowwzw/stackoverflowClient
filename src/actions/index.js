@@ -20,7 +20,7 @@ export const fetchBestQuestionsByAuthor = (id, fromFixtures = false) => async (d
             await delay(1000)
             json = bestQuestionsByAuthor
         } else {
-            const url = `${apiHost}/2.2/users/${id}/answers?pagesize=100&order=desc&sort=votes&site=stackoverflow`
+            const url = `${apiHost}/2.2/users/${id}/questions?order=desc&sort=votes&site=stackoverflow`
             const response = await fetch(url)
             json = await response.json()
         }
@@ -70,10 +70,10 @@ export const changeSearch = newValue => ({
     payload: newValue
 })
 
-export const quickViewTableEnable = ({
+export const quickViewTableEnable = () => ({
     type: QUICK_VIEW_TABLE.ENABLE
 })
 
-export const quickViewTableDisable = ({
+export const quickViewTableDisable = () => ({
     type: QUICK_VIEW_TABLE.DISABLE
 })
