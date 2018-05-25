@@ -26,7 +26,7 @@ const store = createStore(
     composeWithDevTools(applyMiddleware(routerMiddleware(history), thunk)),
 )
 
-const ConnectedSwitch = connect(selectorForLocation)(Switch)
+const ConnectedSwitch = connect(selectorForLocation, null, null, {pure: false})(Switch)
 
 const AppContainer = () => (
     <ConnectedSwitch>
@@ -39,7 +39,7 @@ const AppContainer = () => (
     </ConnectedSwitch>
 )
 
-const App = connect(selectorForLocation)(AppContainer)
+const App = connect(selectorForLocation, null, null, {pure: false})(AppContainer)
 
 render(
     <Provider store={store}>
