@@ -1,35 +1,37 @@
 import { apiHost } from '../constants'
 import searchResponse from '../fixtures/searchResponse.json'
+import bestQuestionsByAuthor from '../fixtures/bestQuestionsByAuthor.json'
 import {delay} from '../utils'
 import {
     FETCH_QUESTIONS,
     SEARCH_CHANGE,
-    QUICK_VIEW_TABLE
+    QUICK_VIEW_TABLE,
+    FETCH_BEST_QUESTIONS_BY_AUTHOR
 } from '../actionTypes'
 
-export const fetchBestQuestionsByAuthor = (intitle, fromFixtures = false) => async (dispatch) => {
+export const fetchBestQuestionsByAuthor = (id, fromFixtures = false) => async (dispatch) => {
     dispatch({
-        type: FETCH_QUESTIONS.START,
-        payload: intitle
+        type: FETCH_BEST_QUESTIONS_BY_AUTHOR.START,
+        payload: id
     })
     try {
         let json
         if (fromFixtures) {
             await delay(1000)
-            json = searchResponse
+            json = bestQuestionsByAuthor
         } else {
-            const url = `${apiHost}/2.2/search?order=desc&sort=activity&intitle=${intitle}&site=stackoverflow`
+            const url = `${apiHost}/2.2/users/${id}/answers?pagesize=100&order=desc&sort=votes&site=stackoverflow`
             const response = await fetch(url)
             json = await response.json()
         }
         console.log('json = ', json)
         dispatch({
-            type: FETCH_QUESTIONS.FINISH,
+            type: FETCH_BEST_QUESTIONS_BY_AUTHOR.FINISH,
             payload: json.items
         })
     } catch (error) {
         dispatch({
-            type: FETCH_QUESTIONS.ERROR,
+            type: FETCH_BEST_QUESTIONS_BY_AUTHOR.ERROR,
             payload: error.message
         })
     }

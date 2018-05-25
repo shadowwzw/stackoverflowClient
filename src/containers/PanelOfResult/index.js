@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {compose, lifecycle, branch,renderComponent, withProps} from 'recompose'
-import {fetchQuestionsByIntitle} from '../../actions'
+import {fetchQuestionsByIntitle, fetchBestQuestionsByAuthor} from '../../actions'
 import {Row, Col} from 'react-bootstrap'
 import TableOfResult from '../../components/TableOfResult/index'
 import ResultSpinner from '../../components/ResultSpinner'
@@ -22,7 +22,8 @@ const PanelOfResult = ({questions, rowEvents, getTdProps}) => (
 
 export default compose(
     connect(selectorForPanelOfResult, {
-        fetchQuestionsByIntitle
+        fetchQuestionsByIntitle,
+        fetchBestQuestionsByAuthor
     }),
     lifecycle({
         componentDidUpdate() {
@@ -38,10 +39,13 @@ export default compose(
         renderComponent(ResultSpinner)
     ),
     withProps(
-        () => ({
+        ({fetchBestQuestionsByAuthor}) => ({
             getTdProps: (state, rowInfo, column, instance) => {
                 return {
                     onClick: (e, handleOriginal) => {
+                        if (column.Header === 'Author') {
+                            fetchBestQuestionsByAuthor(123, true)
+                        }
                         console.log("A Td Element was clicked!");
                         console.log("it produced this event:", e);
                         console.log("It was in this column:", column);

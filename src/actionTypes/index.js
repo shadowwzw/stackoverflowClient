@@ -6,8 +6,12 @@ export const actionTypes = reduxTypesCreator(true)(
     'ERROR',
     'ENABLE',
     'DISABLE'
-)('FETCH_QUESTIONS', 'QUICK_VIEW_TABLE')
+)('FETCH_QUESTIONS', 'QUICK_VIEW_TABLE', 'FETCH_BEST_QUESTIONS_BY_AUTHOR')
 
-export const { FETCH_QUESTIONS, QUICK_VIEW_TABLE } = actionTypes;
+export const {
+    FETCH_QUESTIONS,
+    QUICK_VIEW_TABLE,
+    FETCH_BEST_QUESTIONS_BY_AUTHOR
+} = actionTypes;
 
 export const SEARCH_CHANGE = 'SEARCH_CHANGE'
