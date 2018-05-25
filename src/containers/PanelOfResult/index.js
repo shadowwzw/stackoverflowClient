@@ -26,17 +26,20 @@ const PanelOfResult = ({
                            quickViewTableType,
                            bestQuestionsByTags
 }) => {
-    console.log('quickViewTableType = ', quickViewTableType)
     const bestQuestionsTable =
-        <TableOfResult
-            data={quickViewTableType === BEST_QUESTIONS_BY_AUTHOR_TYPE ? bestQuestionsByAuthor : bestQuestionsByTags}
-            rowEvents={rowEvents}
-            getTdProps={getTdProps}
-            caption="search results"
-        />
+        <div>
+            <h3>Quick view panel</h3>
+            <TableOfResult
+                data={quickViewTableType === BEST_QUESTIONS_BY_AUTHOR_TYPE ? bestQuestionsByAuthor : bestQuestionsByTags}
+                rowEvents={rowEvents}
+                getTdProps={getTdProps}
+                caption="search results"
+            />
+        </div>
     const TableOfResultOrSpinner = bestQuestionsByAuthorIsLoadingSelector ? <ResultSpinner /> : bestQuestionsTable
     return <Row>
         <Col sm={12} md={12} lg={6}>
+            <h3>Search results</h3>
             <TableOfResult
                 data={questions}
                 rowEvents={rowEvents}
@@ -60,12 +63,9 @@ const mapDispatchToProps = {
 export default compose(
     connect(selectorForPanelOfResult, mapDispatchToProps),
     lifecycle({
-        componentDidUpdate() {
-            // console.log('questions = ', this.props.questions)
-        },
         componentDidMount() {
-            const {fetchQuestionsByIntitle, search} = this.props
-            fetchQuestionsByIntitle(search, true)
+            const {fetchQuestionsByIntitle, search, useFixtures} = this.props
+            fetchQuestionsByIntitle(search, useFixtures)
         },
     }),
     branch(
@@ -78,9 +78,10 @@ export default compose(
              quickViewTableEnable,
              fetchBestQuestionsByTag,
              setQuickViewTableType,
+             useFixtures,
              push
         }) => ({
-            getTdProps: (state, rowInfo, column, instance) => {
+            getTdProps: (state, rowInfo, column) => {
                 return {
                     onClick: (e, handleOriginal) => {
                         if (handleOriginal) {
@@ -89,7 +90,7 @@ export default compose(
                         switch (column.Header) {
                             case 'Author':
                                 const user_id = get(rowInfo, 'original.user_id', 0)
-                                fetchBestQuestionsByAuthor(user_id, true)
+                                fetchBestQuestionsByAuthor(user_id, useFixtures)
                                 setQuickViewTableType(BEST_QUESTIONS_BY_AUTHOR_TYPE)
                                 quickViewTableEnable()
                                 break
@@ -100,7 +101,7 @@ export default compose(
                                 break
                             case 'Tags':
                                 const tags = get(rowInfo, 'original.tags', 'javascript')
-                                fetchBestQuestionsByTag(tags, true)
+                                fetchBestQuestionsByTag(tags, useFixtures)
                                 setQuickViewTableType(BEST_QUESTIONS_BY_TAGS_TYPE)
                                 quickViewTableEnable()
                                 break

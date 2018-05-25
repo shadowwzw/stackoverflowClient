@@ -58,10 +58,10 @@ export default compose(
     }),
     lifecycle({
         componentDidMount() {
-            const {fetchFullQuestion,fetchAnswersByQuestionId, location} = this.props
+            const {fetchFullQuestion,fetchAnswersByQuestionId, location, useFixtures} = this.props
             const question_id = parse(location.search).question_id
-            fetchFullQuestion(question_id, true)
-            fetchAnswersByQuestionId(question_id, true)
+            fetchFullQuestion(question_id, useFixtures)
+            fetchAnswersByQuestionId(question_id, useFixtures)
         }
     })
 )(ModalOfDescription)

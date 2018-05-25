@@ -12,6 +12,10 @@ export const createQuestionsSelector = key => state => state[key].map(item => ({
     user_id: get(item, 'owner.user_id', 0)
 }))
 
+const searchSelector = state => state.search
+
+const useFixturesSelector = state => state.useFixtures
+
 const quickViewTableIsEnabledSelector = state => state.quickViewTableIsEnabled
 
 const bestQuestionsByAuthorIsLoadingSelector = state => state.bestQuestionsByAuthorIsLoading
@@ -26,6 +30,8 @@ export const selectorForPanelOfResult = createSelector(
     bestQuestionsByAuthorIsLoadingSelector,
     quickViewTableTypeSelector,
     createQuestionsSelector('bestQuestionsByTags'),
+    useFixturesSelector,
+    searchSelector,
     (
         questionsIsLoading,
         questions,
@@ -33,7 +39,9 @@ export const selectorForPanelOfResult = createSelector(
         quickViewTableIsEnabledSelector,
         bestQuestionsByAuthorIsLoadingSelector,
         quickViewTableType,
-        bestQuestionsByTags
+        bestQuestionsByTags,
+        useFixtures,
+        search
         ) => ({
             questionsIsLoading,
             questions,
@@ -41,7 +49,9 @@ export const selectorForPanelOfResult = createSelector(
             quickViewTableIsEnabledSelector,
             bestQuestionsByAuthorIsLoadingSelector,
             quickViewTableType,
-            bestQuestionsByTags
+            bestQuestionsByTags,
+            useFixtures,
+            search
         })
 )
 
@@ -63,18 +73,19 @@ export const selectorForModalOfDescription = createSelector(
     fullQuestionSelector,
     fullQuestionIsLoadingSelector,
     answersSelector,
+    useFixturesSelector,
     (
         fullQuestion,
         fullQuestionIsLoading,
         answers,
+        useFixtures
     ) => ({
         fullQuestion,
         fullQuestionIsLoading,
-        answers
+        answers,
+        useFixtures
     })
 )
-
-const searchSelector = state => state.search
 
 export const selectorForSearchPanel = createSelector(
     searchSelector,
