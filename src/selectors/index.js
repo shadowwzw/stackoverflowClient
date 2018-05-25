@@ -39,7 +39,11 @@ export const selectorForPanelOfResult = createSelector(
         })
 )
 
-export const fullQuestionSelector = state => state.fullQuestion
+export const fullQuestionSelector = ({fullQuestion}) => ({
+    body: fullQuestion.body,
+    title: fullQuestion.title,
+    author: get(fullQuestion, 'owner.display_name')
+})
 
 export const fullQuestionIsLoadingSelector = state => state.fullQuestionIsLoading
 
@@ -47,11 +51,11 @@ export const selectorForModalOfDescription = createSelector(
     fullQuestionSelector,
     fullQuestionIsLoadingSelector,
     (
-        fullQuestionSelector,
-        fullQuestionIsLoadingSelector
+        fullQuestion,
+        fullQuestionIsLoading
     ) => ({
-        fullQuestionSelector,
-        fullQuestionIsLoadingSelector
+        fullQuestion,
+        fullQuestionIsLoading
     })
 )
 
