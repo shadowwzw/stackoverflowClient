@@ -3,16 +3,14 @@ import get from 'lodash/get'
 
 export const questionsIsLoadingSelector = state => state.questionsIsLoading
 
-export const createQuestionsSelector = key => state => state[key].map(item => {
-    return {
-        question_id: get(item, 'question_id', 0),
-        author: get(item, 'owner.display_name', ''),
-        subject: get(item, 'title', ''),
-        numberOfAnswers: get(item, 'answer_count', ''),
-        tags: get(item, 'tags', []).join(' '),
-        user_id: get(item, 'owner.user_id', 0)
-    }
-})
+export const createQuestionsSelector = key => state => state[key].map(item => ({
+    question_id: get(item, 'question_id', 0),
+    author: get(item, 'owner.display_name', ''),
+    subject: get(item, 'title', ''),
+    numberOfAnswers: get(item, 'answer_count', ''),
+    tags: get(item, 'tags', []).join(' '),
+    user_id: get(item, 'owner.user_id', 0)
+}))
 
 const quickViewTableIsEnabledSelector = state => state.quickViewTableIsEnabled
 
@@ -38,6 +36,10 @@ export const selectorForPanelOfResult = createSelector(
             bestQuestionsByAuthorIsLoadingSelector
         })
 )
+
+export const answersSelector = ({answers}) => answers.map(answer => ({
+
+}))
 
 export const fullQuestionSelector = ({fullQuestion}) => ({
     body: fullQuestion.body,
