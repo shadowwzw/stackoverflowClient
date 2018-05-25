@@ -8,7 +8,7 @@ import {selectorForSearchPanel} from '../../selectors'
 export default compose(
     connect(selectorForSearchPanel, {push, changeSearch}),
     withHandlers({
-        onSubmit: ({push}) => (e) => {e.preventDefault(); push('/result')},
+        onSubmit: ({push, search}) => (e) => {e.preventDefault(); push(`/result?search=${encodeURI(search)}`)},
         onChange: ({changeSearch}) => (e) => {changeSearch(e.target.value)}
     })
 )(SearchPanel)

@@ -79,6 +79,7 @@ export default compose(
              fetchBestQuestionsByTag,
              setQuickViewTableType,
              useFixtures,
+             search,
              push
         }) => ({
             getTdProps: (state, rowInfo, column) => {
@@ -97,7 +98,7 @@ export default compose(
                             case 'Subject':
                             case 'Answers':
                                 const question_id = get(rowInfo, 'original.question_id', 0)
-                                push(`/result/description?question_id=${question_id}`)
+                                push(`/result/description?search=${encodeURI(search)}&question_id=${question_id}`)
                                 break
                             case 'Tags':
                                 const tags = get(rowInfo, 'original.tags', 'javascript')
