@@ -9,6 +9,7 @@ import {fetchFullQuestion, fetchAnswersByQuestionId} from '../../actions'
 
 const ModalOfDescription = ({fullQuestion, onHide, answers}) => (
     <Modal
+        bsSize="large"
         show={true}
         onHide={onHide}
         dialogClassName="custom-modal"
