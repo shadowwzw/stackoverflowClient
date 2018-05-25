@@ -6,8 +6,36 @@ import {
     FETCH_QUESTIONS,
     SEARCH_CHANGE,
     QUICK_VIEW_TABLE,
-    FETCH_BEST_QUESTIONS_BY_AUTHOR
+    FETCH_BEST_QUESTIONS_BY_AUTHOR,
+    FETCH_FULL_QUESTION
 } from '../actionTypes'
+
+export const fetchFullQuestion = (id, fromFixtures = false) => async (dispatch) => {
+    dispatch({
+        type: FETCH_FULL_QUESTION.START,
+        payload: id
+    })
+    try {
+        let json
+        if (fromFixtures) {
+            await delay(1000)
+            json = bestQuestionsByAuthor
+        } else {
+            const url = `${apiHost}/2.2/questions/${id}?order=desc&sort=activity&site=stackoverflow&filter=!9Z(-wwYGT`
+            const response = await fetch(url)
+            json = await response.json()
+        }
+        dispatch({
+            type: FETCH_FULL_QUESTION.FINISH,
+            payload: json.items[0]
+        })
+    } catch (error) {
+        dispatch({
+            type: FETCH_FULL_QUESTION.ERROR,
+            payload: error.message
+        })
+    }
+}
 
 export const fetchBestQuestionsByAuthor = (id, fromFixtures = false) => async (dispatch) => {
     dispatch({

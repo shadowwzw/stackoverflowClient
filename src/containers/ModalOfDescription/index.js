@@ -9,7 +9,7 @@ const ModalOfDescription = ({}) => (
     >
         <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-lg">
-                Modal heading
+                Description
             </Modal.Title>
         </Modal.Header>
         <Modal.Body>
