@@ -3,7 +3,7 @@ import get from 'lodash/get'
 
 export const questionsIsLoadingSelector = state => state.questionsIsLoading
 
-export const questionsSelector = (state) => state.questions.map(item => {
+export const createQuestionsSelector = key => state => state[key].map(item => {
     return {
         question_id: get(item, 'question_id', 0),
         author: get(item, 'owner.display_name', ''),
@@ -18,15 +18,18 @@ const quickViewTableIsEnabledSelector = state => state.quickViewTableIsEnabled
 
 export const selectorForPanelOfResult = createSelector(
     questionsIsLoadingSelector,
-    questionsSelector,
+    createQuestionsSelector('questions'),
+    createQuestionsSelector('bestQuestionsByAuthor'),
     quickViewTableIsEnabledSelector,
     (
         questionsIsLoading,
         questions,
+        bestQuestionsByAuthor,
         quickViewTableIsEnabledSelector
         ) => ({
             questionsIsLoading,
             questions,
+            bestQuestionsByAuthor,
             quickViewTableIsEnabledSelector
         })
 )
