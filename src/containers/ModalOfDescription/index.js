@@ -1,15 +1,16 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {compose, lifecycle} from 'recompose'
+import {compose, lifecycle, withHandlers} from 'recompose'
+import {push} from 'react-router-redux'
 import {parse} from 'query-string'
 import {FormGroup, FormControl, Form, Col, Button, Row, Modal} from 'react-bootstrap'
 import {selectorForModalOfDescription} from '../../selectors'
 import {fetchFullQuestion} from '../../actions'
 
-const ModalOfDescription = ({fullQuestion}) => (
+const ModalOfDescription = ({fullQuestion, onHide}) => (
     <Modal
         show={true}
-        onHide={() => {}}
+        onHide={onHide}
         dialogClassName="custom-modal"
     >
         <Modal.Header closeButton>
@@ -21,17 +22,23 @@ const ModalOfDescription = ({fullQuestion}) => (
             <div dangerouslySetInnerHTML={{__html: fullQuestion.body}} />
         </Modal.Body>
         <Modal.Footer>
-            <Button onClick={() => {}}>Close</Button>
+            <Button onClick={onHide}>Close</Button>
         </Modal.Footer>
     </Modal>
 )
 
 const mapDispatchToProps = {
-    fetchFullQuestion
+    fetchFullQuestion,
+    push
 }
 
 export default compose(
     connect(selectorForModalOfDescription, mapDispatchToProps),
+    withHandlers({
+        onHide: ({push}) => () => {
+            push('/result')
+        }
+    }),
     lifecycle({
         componentDidMount() {
             const {fetchFullQuestion, location} = this.props
