@@ -4,8 +4,18 @@ import {
     SEARCH_CHANGE,
     QUICK_VIEW_TABLE,
     FETCH_BEST_QUESTIONS_BY_AUTHOR,
-    FETCH_FULL_QUESTION
+    FETCH_FULL_QUESTION,
+    FETCH_ANSWERS_BY_QUESTION_ID
 } from '../actionTypes'
+
+export const answers = createReducer([], {
+    [FETCH_ANSWERS_BY_QUESTION_ID.FINISH]: (state, action) => action.payload
+})
+
+export const answersIsLoading = createReducer(false, {
+    [FETCH_ANSWERS_BY_QUESTION_ID.START]: () => true,
+    [FETCH_ANSWERS_BY_QUESTION_ID.FINISH]: () => false,
+})
 
 export const questions = createReducer([], {
     [FETCH_QUESTIONS.FINISH]: (state, action) => action.payload
@@ -51,5 +61,7 @@ export default {
     quickViewTableIsEnabled,
     bestQuestionsByAuthor,
     fullQuestion,
-    fullQuestionIsLoading
+    fullQuestionIsLoading,
+    answers,
+    answersIsLoading
 }

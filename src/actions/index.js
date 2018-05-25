@@ -2,14 +2,44 @@ import { apiHost } from '../constants'
 import searchResponse from '../fixtures/searchResponse.json'
 import bestQuestionsByAuthor from '../fixtures/bestQuestionsByAuthor.json'
 import fullQuestion from '../fixtures/fullQuestion.json'
+import answersByQuestionId from '../fixtures/answersByQuestionId.json'
 import {delay} from '../utils'
 import {
     FETCH_QUESTIONS,
     SEARCH_CHANGE,
     QUICK_VIEW_TABLE,
     FETCH_BEST_QUESTIONS_BY_AUTHOR,
-    FETCH_FULL_QUESTION
+    FETCH_FULL_QUESTION,
+    FETCH_ANSWERS_BY_QUESTION_ID
 } from '../actionTypes'
+
+export const fetchAnswersByQuestionId = (id, fromFixtures = false) => async (dispatch) => {
+    dispatch({
+        type: FETCH_ANSWERS_BY_QUESTION_ID.START,
+        payload: id
+    })
+    try {
+        let json
+        if (fromFixtures) {
+            await delay(1000)
+            json = answersByQuestionId
+        } else {
+            const url = `${apiHost}/2.2/questions/${id}/answers` +
+                '?order=desc&sort=activity&site=stackoverflow&filter=!9Z(-wzu0T'
+            const response = await fetch(url)
+            json = await response.json()
+        }
+        dispatch({
+            type: FETCH_ANSWERS_BY_QUESTION_ID.FINISH,
+            payload: json.items
+        })
+    } catch (error) {
+        dispatch({
+            type: FETCH_ANSWERS_BY_QUESTION_ID.ERROR,
+            payload: error.message
+        })
+    }
+}
 
 export const fetchFullQuestion = (id, fromFixtures = false) => async (dispatch) => {
     dispatch({

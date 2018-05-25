@@ -5,7 +5,7 @@ import {push} from 'react-router-redux'
 import {parse} from 'query-string'
 import {FormGroup, FormControl, Form, Col, Button, Row, Modal} from 'react-bootstrap'
 import {selectorForModalOfDescription} from '../../selectors'
-import {fetchFullQuestion} from '../../actions'
+import {fetchFullQuestion, fetchAnswersByQuestionId} from '../../actions'
 
 const ModalOfDescription = ({fullQuestion, onHide}) => (
     <Modal
@@ -28,6 +28,7 @@ const ModalOfDescription = ({fullQuestion, onHide}) => (
 )
 
 const mapDispatchToProps = {
+    fetchAnswersByQuestionId,
     fetchFullQuestion,
     push
 }
@@ -41,9 +42,10 @@ export default compose(
     }),
     lifecycle({
         componentDidMount() {
-            const {fetchFullQuestion, location} = this.props
+            const {fetchFullQuestion,fetchAnswersByQuestionId, location} = this.props
             const question_id = parse(location.search).question_id
             fetchFullQuestion(question_id, true)
+            fetchAnswersByQuestionId(question_id, true)
         }
     })
 )(ModalOfDescription)
