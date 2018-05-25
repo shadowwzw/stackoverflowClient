@@ -15,6 +15,7 @@ import reducers from './reducers'
 import MainPanel from './components/MainPanel'
 import SearchPanelWrapped from './containers/SearchPanelWrapped'
 import PanelOfResult from './containers/PanelOfResult'
+import ModalOfDescription from './containers/ModalOfDescription'
 import {selectorForLocation} from './selectors'
 
 const history = createHistory()
@@ -35,6 +36,7 @@ const AppContainer = () => (
             <Grid fluid>
                 <Route exact path="/" component={SearchPanelWrapped} />
                 <Route path="/result" component={PanelOfResult} />
+                <Route path="/result/description" component={ModalOfDescription} />
             </Grid>
         </MainPanel>
     </ConnectedSwitch>
