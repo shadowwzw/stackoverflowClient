@@ -67,11 +67,9 @@ export default compose(
     lifecycle({
         componentDidMount() {
             const {fetchQuestionsByIntitle, search, useFixtures, location, changeSearch} = this.props
-            console.log('location = ', location)
             const {search: searchFromLocation} = parse(location.search)
             const decodedSearchFromLocation = decodeURI(searchFromLocation)
-            console.log('decodedSearchFromLocation = ', decodedSearchFromLocation)
-            if (search === undefined) changeSearch(decodedSearchFromLocation)
+            if (search === '') changeSearch(decodedSearchFromLocation)
             fetchQuestionsByIntitle(decodedSearchFromLocation, useFixtures)
         },
     }),
