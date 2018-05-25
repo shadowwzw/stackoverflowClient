@@ -9,7 +9,8 @@ export const questionsSelector = (state) => state.questions.map(item => {
         author: get(item, 'owner.display_name', ''),
         subject: get(item, 'title', ''),
         numberOfAnswers: get(item, 'answer_count', ''),
-        tags: get(item, 'tags', []).join(' ')
+        tags: get(item, 'tags', []).join(' '),
+        user_id: get(item, 'owner.user_id', 0)
     }
 })
 

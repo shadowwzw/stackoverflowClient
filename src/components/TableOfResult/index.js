@@ -1,27 +1,31 @@
 import React from 'react'
-import BootstrapTable from 'react-bootstrap-table-next';
+import ReactTable from "react-table";
 
 const columns = [
     {
-        dataField: 'author',
-        text: 'Author'
+        accessor: 'author',
+        Header: 'Author',
     },
     {
-        dataField: 'subject',
-        text: 'Subject'
+        accessor: 'subject',
+        Header: 'Subject'
     },
     {
-        dataField: 'numberOfAnswers',
-        text: 'Number of answers'
+        accessor: 'numberOfAnswers',
+        Header: 'answers'
     },
     {
-        dataField: 'tags',
-        text: 'Tags'
+        accessor: 'tags',
+        Header: 'Tags'
     },
 ];
 
-const TableOfResult = ({data}) => (
-    <BootstrapTable keyField='question_id' data={data} columns={ columns } />
+const TableOfResult = ({data, caption, getTdProps}) => (
+    <ReactTable
+        data={data}
+        columns={columns}
+        getTdProps={getTdProps}
+    />
 )
 
 export default TableOfResult
