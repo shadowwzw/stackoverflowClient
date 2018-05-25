@@ -1,8 +1,11 @@
+import get from 'lodash/get'
+import randomInt from 'random-int'
 import { apiHost } from '../constants'
 import searchResponse from '../fixtures/searchResponse.json'
 import bestQuestionsByAuthor from '../fixtures/bestQuestionsByAuthor.json'
 import fullQuestion from '../fixtures/fullQuestion.json'
 import answersByQuestionId from '../fixtures/answersByQuestionId.json'
+import answersByTag from '../fixtures/answersByTag.json'
 import {delay} from '../utils'
 import {
     FETCH_QUESTIONS,
@@ -10,7 +13,8 @@ import {
     QUICK_VIEW_TABLE,
     FETCH_BEST_QUESTIONS_BY_AUTHOR,
     FETCH_FULL_QUESTION,
-    FETCH_ANSWERS_BY_QUESTION_ID
+    FETCH_ANSWERS_BY_QUESTION_ID,
+    FETCH_BEST_QUESTIONS_BY_TAG
 } from '../actionTypes'
 
 export const fetchAnswersByQuestionId = (id, fromFixtures = false) => async (dispatch) => {
@@ -63,6 +67,39 @@ export const fetchFullQuestion = (id, fromFixtures = false) => async (dispatch) 
     } catch (error) {
         dispatch({
             type: FETCH_FULL_QUESTION.ERROR,
+            payload: error.message
+        })
+    }
+}
+
+export const fetchBestQuestionsByTag = (tags, fromFixtures = false) => async (dispatch) => {
+    dispatch({
+        type: FETCH_BEST_QUESTIONS_BY_TAG.START,
+        payload: tags
+    })
+    try {
+        let json
+        if (fromFixtures) {
+            await delay(1000)
+            json = answersByTag
+        } else {
+            const randomNumber = randomInt(0, 99)
+            const topAskersUrl = `${apiHost}/2.2/tags/javascript/top-askers/all_time` +
+                '?pagesize=100&site=stackoverflow&filter=!T(Pes*aFoM1ltCn4jY'
+            const topAskersResponse = await fetch(topAskersUrl)
+            const id = await topAskersResponse.json().map(item => get(item, 'user.user_id'))[randomNumber]
+            const url = `${apiHost}/2.2/users/${id}/tags/${encodeURI(tags)}/top-questions` +
+                '?order=desc&sort=activity&site=stackoverflow'
+            const response = await fetch(url)
+            json = await response.json()
+        }
+        dispatch({
+            type: FETCH_BEST_QUESTIONS_BY_TAG.FINISH,
+            payload: json.items
+        })
+    } catch (error) {
+        dispatch({
+            type: FETCH_BEST_QUESTIONS_BY_TAG.ERROR,
             payload: error.message
         })
     }
