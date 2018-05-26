@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {compose, lifecycle, withHandlers} from 'recompose'
 import {push} from 'react-router-redux'
-import {parse} from 'query-string'
+import {parseSearch} from '../../utils'
 import {Button, Modal} from 'react-bootstrap'
 import {selectorForModalOfDescription} from '../../selectors'
 import {fetchFullQuestion, fetchAnswersByQuestionId} from '../../actions'
@@ -53,7 +53,7 @@ export default compose(
     lifecycle({
         componentDidMount() {
             const {fetchFullQuestion,fetchAnswersByQuestionId, location, useFixtures} = this.props
-            const question_id = parse(location.search).question_id
+            const question_id = parseSearch(location.search).question_id
             fetchFullQuestion(question_id, useFixtures)
             fetchAnswersByQuestionId(question_id, useFixtures)
         }

@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import get from 'lodash/get'
 import {compose, lifecycle, branch,renderComponent, withProps} from 'recompose'
 import {push} from 'react-router-redux'
-import {parse} from 'query-string'
+import {parseSearch} from '../../utils'
 import {Row, Col} from 'react-bootstrap'
 import {
     fetchQuestionsByIntitle,
@@ -67,7 +67,7 @@ export default compose(
     lifecycle({
         componentDidMount() {
             const {fetchQuestionsByIntitle, search, useFixtures, location, changeSearch} = this.props
-            const {search: searchFromLocation} = parse(location.search)
+            const {search: searchFromLocation} = parseSearch(location.search)
             const decodedSearchFromLocation = decodeURI(searchFromLocation)
             if (search === '') changeSearch(decodedSearchFromLocation)
             fetchQuestionsByIntitle(decodedSearchFromLocation, useFixtures)
