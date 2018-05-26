@@ -20,6 +20,7 @@ import ModalOfDescription from './containers/ModalOfDescription'
 import {selectorForLocation} from './selectors'
 
 const BASE_NAME = process.env.BASE_NAME
+console.log('BASE_NAME = ', BASE_NAME)
 const history = createHistory({ basename: BASE_NAME ? `/${BASE_NAME}` : '/' })
 
 const store = createStore(
