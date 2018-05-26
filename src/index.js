@@ -19,7 +19,7 @@ import PanelOfResult from './containers/PanelOfResult'
 import ModalOfDescription from './containers/ModalOfDescription'
 import {selectorForLocation} from './selectors'
 
-const history = createHistory()
+const history = createHistory({ basename: process.env.PUBLIC_URL ? `/${process.env.PUBLIC_URL}` : '/' })
 
 const store = createStore(
     combineReducers({
