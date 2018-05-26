@@ -20,7 +20,6 @@ import ModalOfDescription from './containers/ModalOfDescription'
 import {selectorForLocation} from './selectors'
 
 const basename = process.env.NODE_ENV === 'production' ? '/stackoverflow_client' : '/'
-console.log('basename = ', basename)
 const history = createHistory({ basename })
 
 const store = createStore(
