@@ -5,6 +5,7 @@
   "dependencies": {
     "animate.css": "^3.6.1",
     "bootstrap3": "^3.3.5",
+    "cross-env": "^5.1.6",
     "history": "^4.7.2",
     "lodash": "^4.17.10",
     "query-string": "^6.1.0",
@@ -29,7 +30,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "cross-env PUBLIC_URL=https://shadowwzw.com/stackoverflow_client/ react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
