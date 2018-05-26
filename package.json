@@ -30,7 +30,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "cross-env PUBLIC_URL=https://shadowwzw.com/stackoverflow_client react-scripts build",
+    "build": "cross-env BASE_NAME=stackoverflow_client BASPUBLIC_URL=https://shadowwzw.com/stackoverflow_client react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
