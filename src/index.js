@@ -19,9 +19,9 @@ import PanelOfResult from './containers/PanelOfResult'
 import ModalOfDescription from './containers/ModalOfDescription'
 import {selectorForLocation} from './selectors'
 
-const BASE_NAME = process.env.BASE_NAME
-console.log('BASE_NAME = ', BASE_NAME)
-const history = createHistory({ basename: BASE_NAME ? `/${BASE_NAME}` : '/' })
+const basename = process.env.NODE_ENV === 'production' ? '/stackoverflow_client' : '/'
+console.log('basename = ', basename)
+const history = createHistory({ basename })
 
 const store = createStore(
     combineReducers({
