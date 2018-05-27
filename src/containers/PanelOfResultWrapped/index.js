@@ -1,10 +1,8 @@
-import React from 'react'
 import {connect} from 'react-redux'
 import get from 'lodash/get'
 import {compose, lifecycle, branch,renderComponent, withProps} from 'recompose'
 import {push} from 'react-router-redux'
 import {parseSearch} from '../../utils'
-import {Row, Col} from 'react-bootstrap'
 import {
     fetchQuestionsByIntitle,
     fetchBestQuestionsByAuthor,
@@ -13,44 +11,10 @@ import {
     setQuickViewTableType,
     changeSearch
 } from '../../actions'
-import TableOfResult from '../../components/TableOfResult/index'
 import ResultSpinner from '../../components/ResultSpinner'
 import {selectorForPanelOfResult} from '../../selectors'
 import {BEST_QUESTIONS_BY_AUTHOR_TYPE, BEST_QUESTIONS_BY_TAGS_TYPE} from '../../constants'
-
-const PanelOfResult = ({
-                           questions,
-                           rowEvents,
-                           getTdProps,
-                           bestQuestionsByAuthor,
-                           quickViewTableIsEnabled,
-                           bestQuestionsByAuthorIsLoading,
-                           quickViewTableType,
-                           bestQuestionsByTags,
-                           bestQuestionsByTagsIsLoading
-}) => {
-    const bestQuestionsTable =
-        <TableOfResult
-            title="Quick view panel"
-            data={quickViewTableType === BEST_QUESTIONS_BY_AUTHOR_TYPE ? bestQuestionsByAuthor : bestQuestionsByTags}
-            rowEvents={rowEvents}
-            getTdProps={getTdProps}
-        />
-    const isLoading = bestQuestionsByAuthorIsLoading || bestQuestionsByTagsIsLoading
-    const TableOfResultOrSpinner = isLoading ? <ResultSpinner /> : bestQuestionsTable
-    return <Row>
-        <Col sm={12} md={12} lg={6}>
-            <TableOfResult
-                title="Search results"
-                data={questions}
-                rowEvents={rowEvents}
-                getTdProps={getTdProps}
-                caption="search results"
-            />
-        </Col>
-        {quickViewTableIsEnabled && <Col sm={12} md={12} lg={6}>{TableOfResultOrSpinner}</Col>}
-    </Row>
-}
+import PanelOfResult from '../../components/PanelOfResult'
 
 const mapDispatchToProps = {
     fetchQuestionsByIntitle,
