@@ -16,7 +16,7 @@ import reducers from './reducers'
 import MainPanel from './components/MainPanel'
 import SearchPanelWrapped from './containers/SearchPanelWrapped'
 import PanelOfResult from './containers/PanelOfResult'
-import ModalOfDescription from './containers/ModalOfDescription'
+import ModalOfDescription from './containers/ModalOfDescriptionWrapped'
 import {selectorForLocation} from './selectors'
 
 const basename = process.env.NODE_ENV === 'production' ? '/stackoverflow_client' : '/'
