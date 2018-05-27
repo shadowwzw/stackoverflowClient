@@ -1,3 +1,4 @@
+import 'es6-shim'
 import React from 'react'
 import { render } from 'react-dom'
 import { connect, Provider } from 'react-redux'
