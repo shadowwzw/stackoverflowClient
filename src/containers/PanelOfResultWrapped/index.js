@@ -51,6 +51,7 @@ export default compose(
              search,
              push
         }) => ({
+            onClickOnGoToSearch: () => push(`/`),
             getTdProps: (state, rowInfo, column) => {
                 return {
                     onClick: (e, handleOriginal) => {

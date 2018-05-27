@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Row, Col} from 'react-bootstrap'
+import {Row, Col, Button} from 'react-bootstrap'
 import {BEST_QUESTIONS_BY_AUTHOR_TYPE} from "../../constants"
 import TableOfResult from '../TableOfResult'
 import ResultSpinner from '../ResultSpinner'
@@ -13,7 +13,8 @@ const PanelOfResult = ({
                            bestQuestionsByAuthorIsLoading,
                            quickViewTableType,
                            bestQuestionsByTags,
-                           bestQuestionsByTagsIsLoading
+                           bestQuestionsByTagsIsLoading,
+                           onClickOnGoToSearch
                        }) => {
     const bestQuestionsTable =
         <TableOfResult
@@ -23,20 +24,30 @@ const PanelOfResult = ({
         />
     const isLoading = bestQuestionsByAuthorIsLoading || bestQuestionsByTagsIsLoading
     const TableOfResultOrSpinner = isLoading ? <ResultSpinner /> : bestQuestionsTable
-    return <Row>
-        <Col sm={12} md={12} lg={6}>
-            <TableOfResult
-                title="Search results"
-                data={questions}
-                getTdProps={getTdProps}
-                caption="search results"
-            />
-        </Col>
-        {quickViewTableIsEnabled && <Col sm={12} md={12} lg={6}>{TableOfResultOrSpinner}</Col>}
-    </Row>
+    return <div>
+        <Row>
+            <Col sm={2}>
+                <Button
+                    onClick={onClickOnGoToSearch}
+                >go to search</Button>
+            </Col>
+        </Row>
+        <Row>
+            <Col sm={12} md={12} lg={6}>
+                <TableOfResult
+                    title="Search results"
+                    data={questions}
+                    getTdProps={getTdProps}
+                    caption="search results"
+                />
+            </Col>
+            {quickViewTableIsEnabled && <Col sm={12} md={12} lg={6}>{TableOfResultOrSpinner}</Col>}
+        </Row>
+    </div>
 }
 
 PanelOfResult.propTypes = {
+    onClickOnGoToSearch: PropTypes.func.isRequired,
     questions: PropTypes.array.isRequired,
     getTdProps: PropTypes.func.isRequired,
     bestQuestionsByAuthor: PropTypes.array.isRequired,
