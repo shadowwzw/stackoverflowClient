@@ -26,7 +26,7 @@ export const fetchAnswersByQuestionId = (id, fromFixtures = false) => async (dis
     try {
         let json
         if (fromFixtures) {
-            await delay(1000)
+            await delay(1500)
             json = answersByQuestionId
         } else {
             const url = `${apiHost}/2.2/questions/${id}/answers` +

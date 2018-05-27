@@ -1,5 +1,6 @@
 import React from 'react'
 import {FormGroup, FormControl, Form, Col, Button, Row} from 'react-bootstrap'
+import PropTypes from 'prop-types'
 
 const SearchPanel = ({onChange, onSubmit, search}) => (
     <Row>
@@ -25,5 +26,11 @@ const SearchPanel = ({onChange, onSubmit, search}) => (
         </Col>
     </Row>
 )
+
+SearchPanel.propTypes = {
+    onChange: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    search: PropTypes.string.isRequired
+}
 
 export default SearchPanel

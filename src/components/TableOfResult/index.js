@@ -1,5 +1,6 @@
 import React from 'react'
-import ReactTable from "react-table";
+import ReactTable from "react-table"
+import PropTypes from 'prop-types'
 
 const columns = [
     {
@@ -22,7 +23,7 @@ const columns = [
     },
 ];
 
-const TableOfResult = ({data, caption, getTdProps, title}) => (
+const TableOfResult = ({data, getTdProps, title}) => (
     <div className="animated fadeIn">
         <h3>{title}</h3>
         <ReactTable
@@ -34,5 +35,11 @@ const TableOfResult = ({data, caption, getTdProps, title}) => (
         />
     </div>
 )
+
+TableOfResult.propTypes = {
+    data: PropTypes.array.isRequired,
+    getTdProps: PropTypes.func.isRequired,
+    title: PropTypes.string.isRequired
+}
 
 export default TableOfResult
