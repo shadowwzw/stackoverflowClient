@@ -17,6 +17,7 @@ const SearchPanel = ({onChange, onSubmit, search}) => (
                     </Col>
                     <Col sm={2}>
                         <Button
+                            disabled={!search}
                             type="submit"
                             onClick={onSubmit}
                         >search</Button>
